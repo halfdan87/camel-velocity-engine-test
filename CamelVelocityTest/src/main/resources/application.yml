@@ -1,0 +1,8 @@
+camel:
+  component:
+    velocity:
+      velocity-engine: myVelocityEngine
+      enabled: false
+
+period: 1000
+
