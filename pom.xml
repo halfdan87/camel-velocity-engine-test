@@ -25,7 +25,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-velocity</artifactId>
+			<artifactId>camel-velocity-starter</artifactId>
 			<version>2.23.1</version>
 		</dependency>
 
