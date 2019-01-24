@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class MyVelocityEngine extends VelocityEngine {
 	
     @PostConstruct
-    public void init(){
+    public void initialize(){
        log.error("It seems that I have been initialized by Spring...");
     }
 	
@@ -29,124 +29,114 @@ public class MyVelocityEngine extends VelocityEngine {
 	@Override
 	public Template getTemplate(String name) throws ResourceNotFoundException, ParseErrorException {
 		log.error("Template requested: {}. Do I work?", name);
-		return super.getTemplate("test2.vm");	
+		return null;	
 	}
 	
 	@Override
 	public Template getTemplate(String name, String encoding) throws ResourceNotFoundException, ParseErrorException {
 		log.error("Template requested: {}. Do I work?", name);
-		return super.getTemplate("test2.vm", encoding);
+		return null;
 	}
 	
 	@Override
 	public boolean evaluate(Context context, Writer out, String logTag, String instring)
 			throws ParseErrorException, MethodInvocationException, ResourceNotFoundException {
 		log.error("Context: {}., string:  {}", context, instring);
-		return super.evaluate(context, out, logTag, instring);
+		return false;
 	}
 	
 	@Override
 	public boolean evaluate(Context context, Writer writer, String logTag, Reader reader)
 			throws ParseErrorException, MethodInvocationException, ResourceNotFoundException {
 		log.error("Context: {}, string:  {}", context, reader);		
-		return super.evaluate(context, writer, logTag, reader);
+		return false;
 	}
 
 	@Override
 	public void reset() {
 		log.error("Template requested. Do I work?");
-		super.reset();
 	}
 
 	@Override
 	public void init(String propsFilename) {
 		log.error("Template requested: {}. Do I work?", propsFilename);
-		super.init(propsFilename);
 	}
 
 	@Override
 	public void init(Properties p) {
 		log.error("Template requested: {}. Do I work?", p);
-		super.init(p);
 	}
 
 	@Override
 	public void setProperty(String key, Object value) {
 		log.error("Template requested: {}. Do I work?", value);
-		super.setProperty(key, value);
 	}
 
 	@Override
 	public void addProperty(String key, Object value) {
 		log.error("Template requested: {}. Do I work?", value);
-		super.addProperty(key, value);
 	}
 
 	@Override
 	public void clearProperty(String key) {
 		log.error("Template requested: {}. Do I work?", key);
-		super.clearProperty(key);
 	}
 
 	@Override
 	public void setProperties(Properties configuration) {
 		log.error("Template requested: {}. Do I work?", configuration);
-		super.setProperties(configuration);
 	}
 
 	@Override
 	public Object getProperty(String key) {
 		log.error("Template requested: {}. Do I work?", key);
-		return super.getProperty(key);
+		return null;
 	}
 
 	@Override
 	public boolean invokeVelocimacro(String vmName, String logTag, String[] params, Context context, Writer writer) {
 		log.error("Template requested: {}. Do I work?", vmName);
-		return super.invokeVelocimacro(vmName, logTag, params, context, writer);
+		return false;
 	}
 
 	@Override
 	public boolean mergeTemplate(String templateName, String encoding, Context context, Writer writer)
 			throws ResourceNotFoundException, ParseErrorException, MethodInvocationException {
 		log.error("Template requested: {}. Do I work?", templateName);
-		return super.mergeTemplate(templateName, encoding, context, writer);
+		return false;
 	}
 
 	@Override
 	public boolean resourceExists(String resourceName) {
 		log.error("Template requested: {}. Do I work?", resourceName);
-		return super.resourceExists(resourceName);
+		return false;
 	}
 
 	@Override
 	public Logger getLog() {
 		log.error("Template requested. Do I work?");
-		return super.getLog();
+		return null;
 	}
 
 	@Override
 	public void setApplicationAttribute(Object key, Object value) {
 		log.error("Template requested: {}, {}. Do I work?", key, value);
-		super.setApplicationAttribute(key, value);
 	}
 
 	@Override
 	public Object getApplicationAttribute(Object key) {
 		log.error("Template requested: {}. Do I work?", key);
-		return super.getApplicationAttribute(key);
+		return null;
 	}
 
 	@Override
 	public void removeDirective(String name) {
 		log.error("Template requested: {}. Do I work?", name);
-		super.removeDirective(name);
 	}
 
 	@Override
 	public void loadDirective(String directiveClass) {
 		log.error("Template requested: {}. Do I work?", directiveClass);
-		super.loadDirective(directiveClass);
 	}
 	
 	
