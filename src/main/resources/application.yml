@@ -2,7 +2,7 @@ camel:
   component:
     velocity:
       velocity-engine: myVelocityEngine
-      enabled: false
+      enabled: true
 
 period: 1000
 
