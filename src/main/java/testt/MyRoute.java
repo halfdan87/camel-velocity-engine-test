@@ -13,6 +13,7 @@ import javax.management.ReflectionException;
 import org.apache.camel.CamelContext;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.language.Simple;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -28,38 +29,43 @@ public class MyRoute extends RouteBuilder {
 	    .process(exchange -> {
 	    	exchange.getIn().setBody(Collections.singletonMap("template", "template.vm"));
 	    })
-	    .to("velocity:bean:myRoute.testMethod(${body['template']})")
+	    .to("velocity:bean:myRoute.testMethod('template')")
 	    .log(LoggingLevel.INFO, "Body: ${body}")
 	    
 	    .process(exchange -> {
 	    	exchange.getIn().setBody(Collections.singletonMap("template", "template.vm"));
 	    })
-	    
-	    .recipientList().simple("velocity:bean:myRoute.testMethod(${body['template']})")
+	    .to("velocity:bean:myRoute.testMethod")
 	    .log(LoggingLevel.INFO, "Body: ${body}")
 	    
-	    .process(exchange -> {
-            MBeanServer mbeanServer = camelContext.getManagementStrategy().getManagementAgent().getMBeanServer();
-            Set<ObjectName> objNameSet = mbeanServer.queryNames(new ObjectName("org.apache.camel:type=endpoints,name=\"velocity*\",*"), null);
-
-            log.error("Mbeans found: {}", objNameSet.size());
-            objNameSet.forEach(objectName -> {
-            	try {
-					MBeanInfo mBeanInfo = mbeanServer.getMBeanInfo(objectName);
-					
-					log.error("MBean: {}", mBeanInfo);
-				} catch (IntrospectionException | InstanceNotFoundException | ReflectionException e) {
-					e.printStackTrace();
-				}
-
-            });
-	    })
+//	    .process(exchange -> {
+//	    	exchange.getIn().setBody(Collections.singletonMap("template", "template.vm"));
+//	    })
+//	    
+//	    .recipientList().simple("velocity:bean:myRoute.testMethod(${body['template']})")
+//	    .log(LoggingLevel.INFO, "Body: ${body}")
+//	    
+//	    .process(exchange -> {
+//            MBeanServer mbeanServer = camelContext.getManagementStrategy().getManagementAgent().getMBeanServer();
+//            Set<ObjectName> objNameSet = mbeanServer.queryNames(new ObjectName("org.apache.camel:type=endpoints,name=\"velocity*\",*"), null);
+//
+//            log.error("Mbeans found: {}", objNameSet.size());
+//            objNameSet.forEach(objectName -> {
+//            	try {
+//					MBeanInfo mBeanInfo = mbeanServer.getMBeanInfo(objectName);
+//					
+//					log.error("MBean: {}", mBeanInfo);
+//				} catch (IntrospectionException | InstanceNotFoundException | ReflectionException e) {
+//					e.printStackTrace();
+//				}
+//
+//            });
+//	    })
 	    
 	    ;	    
 	}
 	
-	
-	public String testMethod(String template) {
+	public String testMethod(@Simple("${body['template']}") String template) {
 		log.debug("Body in test method: {}", template);
 		return "test template: " + template;
 	}
